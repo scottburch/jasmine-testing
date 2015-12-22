@@ -1,5 +1,5 @@
 {
-  "name": "jasmine-runner",
+  "name": "jasmine-testing",
   "version": "1.0.0",
   "description": "Jasmine command line runner",
   "main": "index.js",
@@ -10,9 +10,9 @@
   "author": "Scott Burch",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.13.3",
-    "lodash": "^3.10.1",
-    "phantomjs-bin": "^1.0.1"
+    "express": "4.13.3",
+    "lodash": "3.10.1",
+    "phantomjs-bin": "1.0.1"
   },
   "bin": {"jasmine-runner" : "./jasmine-runner.js"}
 }
