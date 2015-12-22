@@ -23,6 +23,7 @@
     "es5-shim": "^4.4.1",
     "raw-loader": "^0.5.1",
     "script-loader": "^0.6.1",
+    "source-map-support": "^0.4.0",
     "style-loader": "^0.13.0",
     "webpack-beep-plugin": "0.0.1"
   },

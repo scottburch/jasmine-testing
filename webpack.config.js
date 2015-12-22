@@ -17,7 +17,7 @@ module.exports = {
                     presets: ['es2015']
                 }
             },
-            { test: /lib\/jasmine.*\.js/, loader: 'raw-loader'},
+            { test: [/lib\/jasmine.*\.js/, /source-map-support/], loader: 'raw-loader'},
             { test: /\.css$/,loader: 'style-loader!css-loader'},
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,
