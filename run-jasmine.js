@@ -61,7 +61,7 @@ page.open(system.args[1], function(status){
     } else {
         waitFor(function(){
             return page.evaluate(function(){
-                return document.body.querySelector('.alert > .passed') !== null || document.body.querySelector('.alert > .failed') !== null;
+                return document.body.querySelector('.jasmine-alert > .jasmine-passed') !== null || document.body.querySelector('.alert > .failed') !== null;
             });
         }, function(){
             var exitCode = page.evaluate(function(){
@@ -82,7 +82,7 @@ page.open(system.args[1], function(status){
                         }
                         return 1;
                     } else {
-                        var passed = document.body.querySelector('.alert > .passed');
+                        var passed = document.body.querySelector('.jasmine-alert > .jasmine-passed');
                         console.log(passed.innerText);
                         return 0;
                     }
