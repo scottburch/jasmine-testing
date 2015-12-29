@@ -1,4 +1,4 @@
-var React = require('react');
+global.React = global.React || require('react');
 var ReactDom = require('react-dom');
 var TestUtils = require('react/lib/ReactTestUtils.js');
 var $j = require('jquery');
