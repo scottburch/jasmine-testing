@@ -2,6 +2,7 @@ global.React = global.React || require('react');
 var ReactDom = require('react-dom');
 var TestUtils = require('react/lib/ReactTestUtils.js');
 var $j = require('jquery');
+var _ = require('lodash');
 
 global.$j = $j;
 
@@ -18,7 +19,9 @@ var ReactHelpers = module.exports = {
         return $n;
     },
     Simulate: TestUtils.Simulate,
-    click: n => ReactHelpers.Simulate.click(n.get ? n.get(0) : n)
+    click: n => ReactHelpers.Simulate.click(n.get ? n.get(0) : n),
+    change: (n, v) => ReactHelpers.Simulate.change(n.get ? n.get(0) : n, {target: {value: v, checked: v}}),
+    fillForm: (n, values) => _.each(values, (value, name) => ReactHelpers.change(n.find(`[name="${name}"]`), value))
 };
 
 afterEach(() => {
