@@ -13,6 +13,7 @@ var scripts = [
 
 eval.call(global, scripts);
 require('./matchers');
+require('./helpers');
 
 
 sourceMapSupport.install();
