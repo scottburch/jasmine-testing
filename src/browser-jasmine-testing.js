@@ -1,6 +1,7 @@
 bindPolyfill();
 
 require('./lib/jasmine-2.4.1/jasmine.css');
+
 require('es5-shim');
 var scripts = [
     require('source-map-support/browser-source-map-support.js'),
@@ -11,6 +12,9 @@ var scripts = [
 
 
 eval.call(global, scripts);
+require('./matchers');
+
+
 sourceMapSupport.install();
 
 // Needed for phantomJS which does not include Function.prototype.bind()

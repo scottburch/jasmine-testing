@@ -7,7 +7,7 @@ global.$j = $j;
 
 var nodes = [];
 
-module.exports = {
+var ReactHelpers = module.exports = {
     render: (component) => {
         var c = TestUtils.renderIntoDocument(component);
         c = c || TestUtils.renderIntoDocument(statelessWrapper(component));
@@ -17,7 +17,8 @@ module.exports = {
         $n.component = c;
         return $n;
     },
-    Simulate: TestUtils.Simulate
+    Simulate: TestUtils.Simulate,
+    click: n => ReactHelpers.Simulate.click(n.get ? n.get(0) : n)
 };
 
 afterEach(() => {
