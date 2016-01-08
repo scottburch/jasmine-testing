@@ -7,7 +7,7 @@ beforeEach(() => {
         toContainInBody: makeMatcherFactory('to contain in body', (actual, expected) => _.contains(actual.html(), expected) ? expected : ''),
         toHaveFieldWithLabel: makeMatcherFactory('to have field with label', (actual, expected) => {
             var {name, label} = expected;
-            return actual.find('.input-form_group').filter((idx, el) => $j(el).find(`span:contains(${label})`).length && $j(el).find(`[name="${name}"]`).length).length ? expected : []
+            return actual.find('.input-form__group').filter((idx, el) => $j(el).find(`span:contains(${label})`).length && $j(el).find(`[name="${name}"]`).length).length ? expected : []
         }),
         toContainDomEl: makeMatcherFactory('to contain DOM Element', (actual, expected) => actual.find(expected).length ? expected : 'not found')
     });
