@@ -61,25 +61,25 @@ page.open(system.args[1], function(status){
     } else {
         waitFor(function(){
             return page.evaluate(function(){
-                return document.body.querySelector('.jasmine-alert > .jasmine-passed') !== null || document.body.querySelector('.alert > .failed') !== null;
+                return document.body.querySelector('.jasmine-alert > .jasmine-passed') !== null || document.body.querySelector('.jasmine-alert > .jasmine-failed') !== null;
             });
         }, function(){
             var exitCode = page.evaluate(function(){
                 try {
                     console.log('');
-                    var list = document.body.querySelectorAll('.spec-detail.failed');
+                    var list = document.body.querySelectorAll('.jasmine-spec-detail.jasmine-failed');
                     if (list && list.length > 0) {
-                        console.log('');
-                        console.log(list.length + ' test(s) FAILED:');
                         for (i = 0; i < list.length; ++i) {
-                            var el = list[i],
-                                desc = el.querySelector('.description'),
-                                msg = el.querySelector('.result-message');
+                            console.log('');
+                            var el = list[i];
+                            var test = el.querySelector('.jasmine-failed a');
+                            var msg = el.querySelector('.jasmine-result-message');
                             console.log('---------------------------------------');
-                            console.log(desc.innerText);
+                            console.log(test.innerText);
                             console.log(msg.innerText);
                             console.log('');
                         }
+                        console.log(list.length + ' test(s) FAILED:');
                         return 1;
                     } else {
                         var passed = document.body.querySelector('.jasmine-alert > .jasmine-passed');
