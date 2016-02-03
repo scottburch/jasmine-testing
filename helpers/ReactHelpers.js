@@ -8,6 +8,8 @@ global.$j = $j;
 
 var nodes = [];
 
+$j('body').prepend('<iframe id="component-iframe" style="width: 100%; height: 300px"></iframe>');
+
 var ReactHelpers = module.exports = {
     render: (component) => {
         var c = iframeExists() ? renderInIframe(component) : renderIntoDocument(component);
