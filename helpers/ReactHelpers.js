@@ -10,11 +10,10 @@ var nodes = [];
 
 var ReactHelpers = module.exports = {
     render: (component) => {
-        var c = TestUtils.renderIntoDocument(component);
-        c = c || TestUtils.renderIntoDocument(statelessWrapper(component));
+        var c = iframeExists() ? renderInIframe(component) : renderIntoDocument(component);
         var n = ReactDom.findDOMNode(c);
         nodes.push(n);
-        var $n = $j(n)
+        var $n = $j(n);
         $n.component = c;
         return $n;
     },
@@ -24,13 +23,33 @@ var ReactHelpers = module.exports = {
     fillForm: (n, values) => _.each(values, (value, name) => ReactHelpers.change(n.find(`[name="${name}"]`), value))
 };
 
-afterEach(() => {
+beforeEach(() => {
     nodes.forEach(n => {
         var container = $j(n).parent().get(0);
         container && ReactDom.unmountComponentAtNode(container);
     });
     nodes = [];
 });
+
+var iframeExists = () => {
+    return !!$j('#component-iframe').length;
+};
+
+var renderInIframe = component => {
+    global.$cWin = $j($j('#component-iframe').get(0).contentDocument);
+    $cWin.find('#component-container').length || $cWin.find('body').html('<div id="component-container"></div>');
+    var c = ReactDom.render(component, $cWin.find('#component-container').get(0));
+    c = c || ReactDom.render(statelessWrapper(component), $cWin.find('#component-container').get(0));
+    return c;
+};
+
+var renderIntoDocument = component => {
+    var c = TestUtils.renderIntoDocument(component);
+    c = c || TestUtils.renderIntoDocument(statelessWrapper(component));
+    return c;
+};
+
+
 
 function statelessWrapper(component) {
     var Wrapper = React.createClass({
