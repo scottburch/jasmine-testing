@@ -13,7 +13,7 @@ global.toggleContentIframe = () => {
     iframe.is(':visible') ? iframe.hide() : iframe.show();
 };
 
-$j('body').prepend('<button style="position: fixed; right: 200px" onclick="toggleContentIframe()">Toggle content</button>');
+$j('body').prepend('<button style="position: fixed; right: 200px; top: 0" onclick="toggleContentIframe()">Toggle content</button>');
 $j('body').prepend('<iframe id="component-iframe" style="width: 100%; height: 300px; display: none"></iframe>');
 
 var ReactHelpers = module.exports = {
