@@ -8,7 +8,13 @@ global.$j = $j;
 
 var nodes = [];
 
-$j('body').prepend('<iframe id="component-iframe" style="width: 100%; height: 300px"></iframe>');
+global.toggleContentIframe = () => {
+    var iframe = $j('#component-iframe');
+    iframe.is(':visible') ? iframe.hide() : iframe.show();
+};
+
+$j('body').prepend('<button style="position: fixed; right: 200px" onclick="toggleContentIframe()">Toggle content</button>');
+$j('body').prepend('<iframe id="component-iframe" style="width: 100%; height: 300px; display: none"></iframe>');
 
 var ReactHelpers = module.exports = {
     render: (component) => {
