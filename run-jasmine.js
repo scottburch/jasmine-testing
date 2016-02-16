@@ -54,37 +54,54 @@ page.onConsoleMessage = function(msg) {
     console.log(msg);
 };
 
+page.onError = function (msg, trace) {
+    console.log('ERROR:', msg);
+    trace.forEach(function(item) {
+        console.log('  ', item.file, ':', item.line);
+    });
+};
+
 page.open(system.args[1], function(status){
     if (status !== "success") {
         console.log("Unable to open " + system.args[1]);
         phantom.exit(1);
     } else {
+
+        /*
+        debugger; // pause here in first web browser tab on step 5
+        page.evaluateAsync(function() {
+            debugger; // step 9 will wait here in the second web browser tab
+        });
+*/
+
         waitFor(function(){
             return page.evaluate(function(){
-                return document.body.querySelector('.jasmine-alert > .jasmine-passed') !== null || document.body.querySelector('.jasmine-alert > .jasmine-failed') !== null;
+                return ['jasmine-passed', 'jasmine-failed', 'jasmine-skipped'].some(function(cls) {
+                    return document.body.querySelector('.jasmine-alert > .'+cls) !== null
+                });
             });
         }, function(){
             var exitCode = page.evaluate(function(){
                 try {
-                    console.log('');
-                    var list = document.body.querySelectorAll('.jasmine-spec-detail.jasmine-failed');
-                    if (list && list.length > 0) {
-                        for (i = 0; i < list.length; ++i) {
-                            console.log('');
-                            var el = list[i];
+                    var errorList = document.body.querySelectorAll('.jasmine-spec-detail.jasmine-failed');
+                    var passed = document.body.querySelector('.jasmine-alert > .jasmine-passed');
+                    var skipped = document.body.querySelector('.jasmine-alert > .jasmine-skipped');
+                    if (errorList && errorList.length) {
+                        errorList.forEach(function(el) {
                             var test = el.querySelector('.jasmine-failed a');
                             var msg = el.querySelector('.jasmine-result-message');
                             console.log('---------------------------------------');
                             console.log(test.innerText);
                             console.log(msg.innerText);
-                            console.log('');
-                        }
-                        console.log(list.length + ' test(s) FAILED:');
+                        });
+                        console.log(errorList.length + ' test(s) FAILED:');
                         return 1;
-                    } else {
-                        var passed = document.body.querySelector('.jasmine-alert > .jasmine-passed');
+                    } else if(passed) {
                         console.log(passed.innerText);
                         return 0;
+                    } else if(skipped) {
+                        console.log(skipped.innerText);
+                        return 1;
                     }
                 } catch (ex) {
                     console.log(ex);

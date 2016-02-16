@@ -30,7 +30,8 @@ function run(opts) {
 
 function runJasmineTests(root) {
     var url='http://localhost:8000/SpecRunner.html';
-    return exec(phantomCmd, [`${__dirname}/run-jasmine.js`, url], {cwd: root});
+    console.log('phantomJS:', exec(phantomCmd, ['-v']));
+    return exec(phantomCmd, [/*'--remote-debugger-port=9001',*/ `${__dirname}/run-jasmine.js`, url], {cwd: root});
 }
 
 
