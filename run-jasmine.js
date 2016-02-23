@@ -83,7 +83,7 @@ page.open(system.args[1], function(status){
         }, function(){
             var exitCode = page.evaluate(function(){
                 try {
-                    var errorList = document.body.querySelectorAll('.jasmine-spec-detail.jasmine-failed');
+                    var errorList = Array.prototype.slice.call(document.body.querySelectorAll('.jasmine-spec-detail.jasmine-failed'));
                     var passed = document.body.querySelector('.jasmine-alert > .jasmine-passed');
                     var skipped = document.body.querySelector('.jasmine-alert > .jasmine-skipped');
                     if (errorList && errorList.length) {
