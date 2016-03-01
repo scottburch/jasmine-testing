@@ -67,11 +67,13 @@ page.open(system.args[1], function(status){
         phantom.exit(1);
     } else {
 
-        /*
-        debugger; // pause here in first web browser tab on step 5
-        page.evaluateAsync(function() {
-            debugger; // step 9 will wait here in the second web browser tab
-        });
+/*
+  if(system.args[2] === 'debug') {
+      debugger; // pause here in first web browser tab on step 5
+      page.evaluateAsync(function () {
+          debugger; // step 9 will wait here in the second web browser tab
+      });
+  }
 */
 
         waitFor(function(){

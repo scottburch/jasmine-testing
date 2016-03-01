@@ -8,12 +8,14 @@ var app = express();
 var server;
 
 
+module.exports = {run: run};
+
+var argv = require('minimist')(process.argv.slice(2));
 
 const SERVER_PORT = 8000
 
-module.exports = {run: run};
 
-module.parent || run({root: process.argv[2]}).then(code => process.exit(code));
+module.parent || run().then(code => process.exit(code));
 
 
 function run(opts) {
@@ -25,13 +27,17 @@ function run(opts) {
             server.close();
             resolve(code);
         });
-    })
+    });
 }
+
 
 function runJasmineTests(root) {
     var url='http://localhost:8000/SpecRunner.html';
-    console.log('phantomJS:', exec(phantomCmd, ['-v']));
-    return exec(phantomCmd, [/*'--remote-debugger-port=9001',*/ `${__dirname}/run-jasmine.js`, url], {cwd: root});
+    var args = [];
+    argv['debug-console'] === true && args.push('--remote-debugger-port=9001');
+    args = args.concat([`${__dirname}/run-jasmine.js`, url]);
+    console.log('phantomJS:', exec(phantomCmd, ['-v']), ':', args);
+    return exec(phantomCmd, args, {cwd: root});
 }
 
 
