@@ -36,7 +36,6 @@ function runJasmineTests(root) {
     var args = [];
     argv['debug-console'] === true && args.push('--remote-debugger-port=9001');
     args = args.concat([`${__dirname}/run-jasmine.js`, url]);
-    console.log('phantomJS:', exec(phantomCmd, ['-v']), ':', args);
     return exec(phantomCmd, args, {cwd: root});
 }
 
