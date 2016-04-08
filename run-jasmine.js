@@ -1,5 +1,5 @@
 var system = require('system');
-var TEST_TIMEOUT = 30000;
+var TEST_TIMEOUT = 120000;
 
 console.log('running jasmine tests: ', system.args[1]);
 
@@ -45,7 +45,7 @@ page.open(system.args[1], function (status) {
          });
          }
          */
-
+        var start = new Date().getTime();
         waitFor(resultsReady, displayResults, TEST_TIMEOUT);
 
 
@@ -59,6 +59,7 @@ page.open(system.args[1], function (status) {
 
 
         function displayResults() {
+            console.log('Time to run tests: ' + (new Date().getTime() - start)/1000 + ' seconds') ;
             phantom.exit(page.evaluate(scrapeResults));
 
 
