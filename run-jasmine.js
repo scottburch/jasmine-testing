@@ -45,9 +45,39 @@ page.open(system.args[1], function (status) {
          });
          }
          */
-        var start = new Date().getTime();
-        waitFor(resultsReady, displayResults, TEST_TIMEOUT);
 
+        var displayIndividualTestResults = (function() {
+            var count = 0;
+
+            return function() {
+                var symbols = Array.prototype.slice.call(getSummarySymbols());
+                symbols.length > count && symbols.slice(count).forEach(function(item) {
+                    console.log(item.result.replace('jasmine-', '')+':', item.title);
+                });
+                count = symbols.length;
+            };
+
+            function getSummarySymbols() {
+                return page.evaluate(function() {
+                    var symbols = document.body.querySelectorAll('.jasmine-symbol-summary li');
+                    return Array.prototype.slice.call(symbols).map(function (s) {
+                        return {title: s.title, result:s.className}
+                    });
+                });
+            }
+
+        }());
+
+
+        var start = new Date().getTime();
+        waitFor(loop, displayResults, TEST_TIMEOUT);
+
+
+
+        function loop() {
+            displayIndividualTestResults();
+            return resultsReady();
+        }
 
         function resultsReady() {
             return page.evaluate(function () {
