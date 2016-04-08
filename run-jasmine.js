@@ -97,7 +97,7 @@ function waitFor(testFx, onReady, timeOutMillis) {
         testFx() ? onReady() : checkTimeout();
 
         function checkTimeout() {
-            new Date().getTime() - start < timeOutMillis ? setTimeout(loop, 100) : timeoutError();
+            new Date().getTime() - start < timeOutMillis ? setTimeout(loop, 1000) : timeoutError();
         }
 
         function timeoutError() {

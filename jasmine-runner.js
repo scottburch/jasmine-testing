@@ -29,16 +29,10 @@ function exec(cmd, args, opts) {
 
         p.on('error', err => console.log(err));
 
-        p.stdout.on('data', function (data) {
-            console.log('stdout: ' + data);
-        });
+        p.stdout.on('data', data => console.log(data.toString()));
 
-        p.stderr.on('data', function (data) {
-            console.log('stderr: ' + data);
-        });
+        p.stderr.on('data', data => console.log(data.toString()));
 
-        p.on('close', function (code) {
-            resolve(code);
-        });
+        p.on('close', resolve);
     });
 };
