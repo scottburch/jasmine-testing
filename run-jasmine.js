@@ -67,13 +67,10 @@ page.open(system.args[1], function (status) {
                 var passed = document.body.querySelector('.jasmine-alert > .jasmine-passed');
                 var skipped = document.body.querySelector('.jasmine-alert > .jasmine-skipped');
                 if (errorList && errorList.length) {
-                    errorList = Array.prototype.slice.call(errorList);
-                    errorList.forEach(function (el) {
-                        var test = el.querySelector('.jasmine-failed a');
-                        var msg = el.querySelector('.jasmine-result-message');
+                    Array.prototype.slice.call(errorList).forEach(function (el) {
                         console.log('---------------------------------------');
-                        console.log(test.innerText);
-                        console.log(msg.innerText);
+                        console.log(el.querySelector('.jasmine-failed a').innerText);
+                        console.log(el.querySelector('.jasmine-result-message').innerText);
                     });
                     console.log(errorList.length + ' test(s) FAILED:');
                     return 1;
