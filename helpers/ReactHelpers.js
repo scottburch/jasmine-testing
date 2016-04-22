@@ -5,6 +5,14 @@ var $j = require('jquery');
 var _ = require('lodash');
 
 global.$j = $j;
+global.React = global.React || require('react');
+var ReactDom = require('react-dom');
+var TestUtils = require('react/lib/ReactTestUtils.js');
+var $j = require('jquery');
+var _ = require('lodash');
+var M = require('simple-monads');
+
+global.$j = $j;
 
 var nodes = [];
 
@@ -32,11 +40,21 @@ var ReactHelpers = module.exports = {
 };
 
 beforeEach(() => {
-    nodes.forEach(n => {
-        var container = $j(n).parent().get(0);
-        container && ReactDom.unmountComponentAtNode(container);
-    });
-    nodes = [];
+    unmountRenderedComponents();
+    iframeExists() && setupIframe();
+
+    function setupIframe() {
+        global.$cWin = $j($j('#component-iframe').get(0).contentDocument);
+        $cWin.find('body').html('');
+    }
+
+    function unmountRenderedComponents() {
+        nodes.forEach(n => {
+            var container = $j(n).parent().get(0);
+            container && ReactDom.unmountComponentAtNode(container);
+        });
+        nodes = [];
+    }
 });
 
 var iframeExists = () => {
@@ -44,10 +62,11 @@ var iframeExists = () => {
 };
 
 var renderInIframe = component => {
-    global.$cWin = $j($j('#component-iframe').get(0).contentDocument);
-    $cWin.find('#component-container').length || $cWin.find('body').html('<div id="component-container"></div>');
-    var c = ReactDom.render(component, $cWin.find('#component-container').get(0));
-    c = c || ReactDom.render(statelessWrapper(component), $cWin.find('#component-container').get(0));
+    var containerId = `container-${_.uniqueId()}`;
+    $cWin.find('body').append(`<div id="${containerId}"></div>`);
+    var container = $cWin.find(`#${containerId}`).get(0);
+    var c = ReactDom.render(component, container);
+    c = c || ReactDom.render(statelessWrapper(component), container);
     return c;
 };
 
@@ -59,9 +78,13 @@ var renderIntoDocument = component => {
 
 
 
+
 function statelessWrapper(component) {
     var Wrapper = React.createClass({
         render: () => component
     });
     return <Wrapper/>
 }
+
+
+
