@@ -4,7 +4,8 @@ var TEST_TIMEOUT = 120000;
 console.log('running jasmine tests: ', system.args[1]);
 
 
-if (system.args.length !== 2) {
+
+if (system.args.length < 2) {
     console.log('Usage: run-jasmine.js URL');
     phantom.exit(1);
 }
@@ -36,15 +37,15 @@ page.open(system.args[1], function (status) {
     }
 
     function waitForTestResults() {
+        if(system.args.indexOf('--debug') !== -1) {
+            console.log('open another browser and go to http://localhost:9001/webkit/inspector/inspector.html?page=1');
+            console.log('If there are no errors, type "__run()" in the console to continue the tests');
 
-        /*
-         if(system.args[2] === 'debug') {
-         debugger; // pause here in first web browser tab on step 5
-         page.evaluateAsync(function () {
-         debugger; // step 9 will wait here in the second web browser tab
-         });
-         }
-         */
+            debugger;  // pause first browser
+            page.evaluateAsync(function () {
+                debugger;    //wait here until second browser opened
+            });
+        }
 
         var displayIndividualTestResults = (function() {
             var count = 0;

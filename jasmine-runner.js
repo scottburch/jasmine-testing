@@ -19,7 +19,11 @@ function run() {
 
 function runJasmineTests(root) {
     var args = [`${__dirname}/run-jasmine.js`, `${root}/SpecRunner.html`];
-    argv['debug-console'] === true && args.push('--remote-debugger-port=9001');
+    if(argv['debug']) {
+        args = ['--remote-debugger-port=9001'].concat(args).concat('--debug');
+        console.log('open a browser and go to http://localhost:9001/webkit/inspector/inspector.html?page=1');
+        console.log('in the console, type "__run()"');
+    }
     return exec(phantomCmd, args, {cwd: root});
 }
 
