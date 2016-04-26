@@ -24,7 +24,9 @@ function runJasmineTests(root) {
         console.log('open a browser and go to http://localhost:9001/webkit/inspector/inspector.html?page=1');
         console.log('in the console, type "__run()"');
     } else {
+        console.log('**************************************************************');
         console.log('To run the tests in debug mode add "-- --debug" to the command');
+        console.log('**************************************************************');
     }
     return exec(phantomCmd, args, {cwd: root});
 }
