@@ -21,8 +21,10 @@ function runJasmineTests(root) {
     var args = [`${__dirname}/run-jasmine.js`, `${root}/SpecRunner.html`];
     if(argv['debug']) {
         args = ['--remote-debugger-port=9001'].concat(args).concat('--debug');
+        console.log('*************************************************************************************');
         console.log('open a browser and go to http://localhost:9001/webkit/inspector/inspector.html?page=1');
         console.log('in the console, type "__run()"');
+        console.log('*************************************************************************************');
     } else {
         console.log('**************************************************************');
         console.log('To run the tests in debug mode add "-- --debug" to the command');
