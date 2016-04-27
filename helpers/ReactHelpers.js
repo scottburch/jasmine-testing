@@ -34,9 +34,12 @@ var ReactHelpers = module.exports = {
         return $n;
     },
     Simulate: TestUtils.Simulate,
-    click: n => ReactHelpers.Simulate.click(n.get ? n.get(0) : n),
-    change: (n, v) => ReactHelpers.Simulate.change(n.get ? n.get(0) : n, {target: {value: v, checked: v}}),
-    fillForm: (n, values) => _.each(values, (value, name) => ReactHelpers.change(n.find(`[name="${name}"]`), value))
+    click: n => ReactHelpers.Simulate.click($j(n).get(0)),
+    change: (n, v) => ReactHelpers.Simulate.change($j(n).get(0), {target: {value: v, checked: v}}),
+    keyUp: (n, keyCode) => ReactHelpers.Simulate.keyUp($j(n).get(0), {keyCode: keyCode}),
+    keyDown: (n, keyCode) => ReactHelpers.Simulate.keyDown($j(n).get(0), {keyCode: keyCode}),
+    keyPress: (n, keyCode) => ReactHelpers.Simulate.keyPress($j(n).get(0), {keyCode: keyCode}),
+    fillForm: (n, values) => _.each(values, (value, name) => ReactHelpers.change($j(n).find(`[name="${name}"]`), value))
 };
 
 beforeEach(() => {
