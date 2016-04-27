@@ -39,7 +39,7 @@ page.open(system.args[1], function (status) {
     function waitForTestResults() {
         if(system.args.indexOf('--debug') !== -1) {
             console.log('===========================================================================================');
-            console.log('open another browser and go to http://localhost:9001/webkit/inspector/inspector.html?page=1');
+            console.log('open another browser and go to http://localhost:9001/webkit/inspector/inspector.html?page=2');
             console.log('If there are no errors, type "__run()" in the console to continue the tests');
             console.log('===========================================================================================');
 

@@ -26,9 +26,9 @@ function runJasmineTests(root) {
         console.log('in the console, type "__run()"');
         console.log('*************************************************************************************');
     } else {
-        console.log('**************************************************************');
-        console.log('To run the tests in debug mode add "-- --debug" to the command');
-        console.log('**************************************************************');
+        console.log('***************************************************************');
+        console.log('To run the tests in debug mode add " -- --debug" to the command');
+        console.log('***************************************************************');
     }
     return exec(phantomCmd, args, {cwd: root});
 }
