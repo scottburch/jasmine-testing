@@ -11,9 +11,7 @@ module.parent || run().then(code => process.exit(code));
 
 
 function run() {
-    return new Promise(resolve =>
-        runJasmineTests(process.cwd()).then(resolve)
-    );
+    return new Promise(resolve => runJasmineTests(process.cwd().replace(/\\/g, '/')).then(resolve));
 }
 
 
