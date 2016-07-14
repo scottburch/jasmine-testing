@@ -39,6 +39,10 @@ var ReactHelpers = module.exports = {
     keyUp: (n, keyCode) => ReactHelpers.Simulate.keyUp($j(n).get(0), {keyCode: keyCode}),
     keyDown: (n, keyCode) => ReactHelpers.Simulate.keyDown($j(n).get(0), {keyCode: keyCode}),
     keyPress: (n, keyCode) => ReactHelpers.Simulate.keyPress($j(n).get(0), {keyCode: keyCode}),
+    mouseDown: (n) => ReactHelpers.Simulate.mouseDown($j(n).get(0), {}),
+    mouseUp: (n) => ReactHelpers.Simulate.mouseUp($j(n).get(0), {}),
+    mouseOver: (n) => ReactHelpers.Simulate.mouseOver($j(n).get(0), {}),
+    mouseOut: (n) => ReactHelpers.Simulate.mouseOut($j(n).get(0), {}),
     fillForm: (n, values) => _.each(values, (value, name) => ReactHelpers.change($j(n).find(`[name="${name}"]`), value))
 };
 
