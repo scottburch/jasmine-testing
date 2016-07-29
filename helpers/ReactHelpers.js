@@ -67,6 +67,8 @@ var iframeExists = () => {
 var renderInIframe = component => {
     var containerId = `container-${_.uniqueId()}`;
     $cWin.find('body').append(`<div id="${containerId}"></div>`);
+
+    // copy over the included styling from document head
     $j('head').find('link[href*=blob]').each((idx, link) =>
         $cWin.find('body').append(link));
 
