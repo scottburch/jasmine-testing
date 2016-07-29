@@ -3,13 +3,6 @@ var ReactDom = require('react-dom');
 var TestUtils = require('react/lib/ReactTestUtils.js');
 var $j = require('jquery');
 var _ = require('lodash');
-
-global.$j = $j;
-global.React = global.React || require('react');
-var ReactDom = require('react-dom');
-var TestUtils = require('react/lib/ReactTestUtils.js');
-var $j = require('jquery');
-var _ = require('lodash');
 var M = require('simple-monads');
 
 global.$j = $j;
@@ -23,6 +16,10 @@ global.toggleContentIframe = () => {
 
 $j('body').prepend('<iframe id="component-iframe" style="width: 100%; height: 300px; display: none"></iframe>');
 $j('body').prepend('<button style="position: fixed; right: 200px; top: 0" onclick="toggleContentIframe()">Toggle content</button>');
+
+
+$j('head').find('link[href*=blob]').each((idx, link) =>
+    $j($j('#component-iframe').get(0).contentDocument).find('head').append(link));
 
 var ReactHelpers = module.exports = {
     render: (component) => {
@@ -92,6 +89,7 @@ function statelessWrapper(component) {
     });
     return <Wrapper/>
 }
+
 
 
 
