@@ -18,8 +18,6 @@ $j('body').prepend('<iframe id="component-iframe" style="width: 100%; height: 30
 $j('body').prepend('<button style="position: fixed; right: 200px; top: 0" onclick="toggleContentIframe()">Toggle content</button>');
 
 
-$j('head').find('link[href*=blob]').each((idx, link) =>
-    $j($j('#component-iframe').get(0).contentDocument).find('head').append(link));
 
 var ReactHelpers = module.exports = {
     render: (component) => {
@@ -50,6 +48,7 @@ beforeEach(() => {
     function setupIframe() {
         global.$cWin = $j($j('#component-iframe').get(0).contentDocument);
         $cWin.find('body').html('');
+
     }
 
     function unmountRenderedComponents() {
@@ -68,6 +67,9 @@ var iframeExists = () => {
 var renderInIframe = component => {
     var containerId = `container-${_.uniqueId()}`;
     $cWin.find('body').append(`<div id="${containerId}"></div>`);
+    $j('head').find('link[href*=blob]').each((idx, link) =>
+        $cWin.find('body').append(link));
+
     var container = $cWin.find(`#${containerId}`).get(0);
     var c = ReactDom.render(component, container);
     c = c || ReactDom.render(statelessWrapper(component), container);
@@ -89,6 +91,7 @@ function statelessWrapper(component) {
     });
     return <Wrapper/>
 }
+
 
 
 
