@@ -9,7 +9,8 @@ beforeEach(() => {
             var {name, label} = expected;
             return actual.find('.input-form__group').filter((idx, el) => $j(el).find(`label:contains(${label})`).length && $j(el).find(`[name="${name}"]`).length).length ? expected : []
         }),
-        toContainDomEl: makeMatcherFactory('to contain DOM Element', (actual, expected) => actual.find(expected).length ? expected : 'not found')
+        toContainDomEl: makeMatcherFactory('to contain DOM Element', (actual, expected) => actual.find(expected).length ? expected : 'not found'),
+        toContain: makeMatcherFactory('to contain', (actual, expected) => $j(actual).find(expected).length ? expected : 'not found')
     });
 });
 
