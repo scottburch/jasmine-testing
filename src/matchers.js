@@ -5,14 +5,15 @@ var matchers = {};
 
 matchers.toHaveLength = makeMatcherFactory('to have length', actual => actual.length);
 matchers.toHaveClass = makeMatcherFactory('to have class', (actual, expected) => $j(actual).hasClass(expected) ? expected : '');
-matchers.toContainInBody = makeMatcherFactory('to contain in body', (actual, expected) => _.contains(actual.html(), expected) ? expected : '');
 matchers.toHaveFieldWithLabel = makeMatcherFactory('to have field with label', (actual, expected) => {
     var {name, label} = expected;
     return actual.find('.input-form__group').filter((idx, el) => $j(el).find(`label:contains(${label})`).length && $j(el).find(`[name="${name}"]`).length).length ? expected : []
 });
-matchers.toContainDomEl = makeMatcherFactory('to contain DOM Element', (actual, expected) => actual.find(expected).length ? expected : 'not found');
 matchers.toContain = makeMatcherFactory('to contain', (actual, expected) => $j(actual).find(expected).length ? expected : 'not found');
-matchers.toContainText = makeMatcherFactory('to contain text', (actual, expected) => matchers.toContain(`>:contains(${expected})`));
+matchers.toContainText = makeMatcherFactory('to contain text', (actual, expected) => $j(actual).find(`>:contains(${expected})`).length ? expected : '');
+matchers.toContainDomEl = makeMatcherFactory('to contain DOM Element', matchers.toContain);
+matchers.toContainInBody = makeMatcherFactory('to contain in body', (actual, expected) => _.contains(actual.html(), expected) ? expected : '');
+
 beforeEach(() => jasmine.addMatchers(matchers));
 
 
@@ -28,7 +29,8 @@ function makeMatcherFactory(text, fn) {
                 var expectedString = expected
             }
             try {
-                var actualString = JSON.stringify(actual)
+                actualString = _.property('component.nodeName')(actual);
+                actualString = actualString || JSON.stringify(actual)
             }
             catch (e) {
                 var actualString = actual

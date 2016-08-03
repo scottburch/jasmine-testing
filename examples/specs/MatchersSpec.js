@@ -54,5 +54,14 @@ describe('matchers', () => {
         });
     });
 
+    describe('toContainText', () => {
+        beforeEach(function() {
+            this.n = RH.render(<div><span>testing123</span></div>);
+        });
+        it('passes if descendent dom element contains text', function() {
+            expect(this.n).toContainText('ting');
+        });
+    });
+
 });
 
