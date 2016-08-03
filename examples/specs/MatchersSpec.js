@@ -61,6 +61,10 @@ describe('matchers', () => {
         it('passes if descendent dom element contains text', function() {
             expect(this.n).toContainText('ting');
         });
+
+        it('passes if this dom element contains text', function() {
+            expect(this.n.find('span')).toContainText('ting');
+        });
     });
 
 });

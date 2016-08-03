@@ -10,7 +10,7 @@ matchers.toHaveFieldWithLabel = makeMatcherFactory('to have field with label', (
     return actual.find('.input-form__group').filter((idx, el) => $j(el).find(`label:contains(${label})`).length && $j(el).find(`[name="${name}"]`).length).length ? expected : []
 });
 matchers.toContain = makeMatcherFactory('to contain', (actual, expected) => $j(actual).find(expected).length ? expected : 'not found');
-matchers.toContainText = makeMatcherFactory('to contain text', (actual, expected) => $j(actual).find(`>:contains(${expected})`).length ? expected : '');
+matchers.toContainText = makeMatcherFactory('to contain text', (actual, expected) => $j(actual).text().includes(expected) ? expected : '');
 matchers.toContainDomEl = makeMatcherFactory('to contain DOM Element', matchers.toContain);
 matchers.toContainInBody = makeMatcherFactory('to contain in body', (actual, expected) => _.contains(actual.html(), expected) ? expected : '');
 
@@ -30,7 +30,8 @@ function makeMatcherFactory(text, fn) {
             }
             try {
                 actualString = _.property('component.nodeName')(actual);
-                actualString = actualString || JSON.stringify(actual)
+                actualString = actualString || actual.selector;
+                actualString = actualString || JSON.stringify(actual);
             }
             catch (e) {
                 var actualString = actual
