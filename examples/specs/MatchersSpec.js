@@ -1,4 +1,25 @@
 describe('matchers', () => {
+    describe('toHaveLength', () => {
+        it('should pass if array has given length', () => {
+            expect([1,2,3]).toHaveLength(3);
+        });
+
+        it('should pass if string has given length', () => {
+            expect('123').toHaveLength(3);
+        });
+    });
+
+    describe('toHaveClass', () => {
+        beforeEach(function() {this.n = RH.render(<div className="testing"></div>)});
+        it('should pass if a jquery element has the given class', function() {
+            expect(this.n).toHaveClass('testing');
+        });
+
+        it('should pass if a dom element has the given class', function() {
+            expect(this.n.get(0)).toHaveClass('testing');
+        });
+    });
+
     describe('toHaveFieldWithLabel', () => {
         it('should return true if it finds a field with  label', () => {
             var n = RH.render(
@@ -31,6 +52,7 @@ describe('matchers', () => {
             );
             expect(n).toContain('something');
         });
-    })
+    });
+
 });
 
