@@ -34,14 +34,14 @@ describe('matchers', () => {
         });
     });
 
-    describe('toContain', () => {
+    describe('toContainChild', () => {
         it('works with a dom element', () => {
             var n = RH.render(
                 <div>
                     <something/>
                 </div>
             );
-            expect(n.get(0)).toContain('something');
+            expect(n.get(0)).toContainChild('something');
         });
 
         it('works with a jquery object', () => {
@@ -50,7 +50,7 @@ describe('matchers', () => {
                     <something/>
                 </div>
             );
-            expect(n).toContain('something');
+            expect(n).toContainChild('something');
         });
     });
 
