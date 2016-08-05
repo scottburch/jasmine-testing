@@ -30,7 +30,7 @@ var ReactHelpers = module.exports = {
     },
     Simulate: TestUtils.Simulate,
     click: n => ReactHelpers.Simulate.click($j(n).get(0)),
-    change: (n, v) => ReactHelpers.Simulate.change($j(n).get(0), {target: {value: v, checked: v}}),
+    change: (n, v) => ReactHelpers.Simulate.change($j(n).get(0), v !== undefined ? {target: {value: v, checked: v}} : undefined),
     keyUp: (n, keyCode) => ReactHelpers.Simulate.keyUp($j(n).get(0), {keyCode: keyCode}),
     keyDown: (n, keyCode) => ReactHelpers.Simulate.keyDown($j(n).get(0), {keyCode: keyCode}),
     keyPress: (n, keyCode) => ReactHelpers.Simulate.keyPress($j(n).get(0), {keyCode: keyCode}),
