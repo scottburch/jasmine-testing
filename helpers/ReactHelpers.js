@@ -4,14 +4,17 @@ var $j = require('jquery');
 var _ = require('lodash');
 
 var nodes = [];
+var $cWin;
+window.$j = $j;
 
-global.toggleContentIframe = () => {
+var toggleContentIframe = () => {
     var iframe = $j('#component-iframe');
     iframe.is(':visible') ? iframe.hide() : iframe.show();
 };
 
 $j('body').prepend('<iframe id="component-iframe" style="width: 100%; height: 300px; display: none"></iframe>');
-$j('body').prepend('<button style="position: fixed; right: 200px; top: 0" onclick="toggleContentIframe()">Toggle content</button>');
+var contentButton = $j('<button style="position: fixed; right: 200px; top: 0">Toggle content</button>').click(toggleContentIframe);
+$j('body').prepend(contentButton);
 
 
 
@@ -42,7 +45,7 @@ beforeEach(() => {
     iframeExists() && setupIframe();
 
     function setupIframe() {
-        global.$cWin = $j($j('#component-iframe').get(0).contentDocument);
+        $cWin = $j($j('#component-iframe').get(0).contentDocument);
         $cWin.find('body').html('');
 
     }
