@@ -3,8 +3,6 @@ var TestUtils = require('react/lib/ReactTestUtils.js');
 var $j = require('jquery');
 var _ = require('lodash');
 
-global.$j = $j;
-
 var nodes = [];
 
 global.toggleContentIframe = () => {
