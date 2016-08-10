@@ -1,12 +1,10 @@
 var BeepPlugin = require('webpack-beep-plugin');
 
 module.exports = {
-    entry: {
-        'browser-jasmine-testing': './src/browser-jasmine-testing.js',
-        'lib/ReactHelpers': './helpers/ReactHelpers.js'
-    },
+    entry: './helpers/ReactHelpers.js',
     output: {
-        filename: '[name].js'
+        filename: 'lib/ReactHelpers.js',
+        libraryTarget: 'umd'
     },
     module: {
         loaders: [
@@ -26,11 +24,20 @@ module.exports = {
             }
         ]
     },
+    externals: {
+        'react': 'react',
+        'react-dom': 'react-dom',
+        'react/lib/ReactTestUtils.js': 'react/lib/ReactTestUtils.js',
+
+        jquery: true,
+        lodash: true
+    },
     resolve: {
         alias: {
         }
     },
     node: {
+//        global: false,
         fs: "empty"
     },
     plugins: [
