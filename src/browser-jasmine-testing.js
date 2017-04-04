@@ -1,7 +1,7 @@
-bindPolyfill();
+//bindPolyfill();
 
 require('./lib/jasmine-2.4.1/jasmine.css');
-require('babel-polyfill');
+//require('babel-polyfill');
 var scripts = [
     require('source-map-support/browser-source-map-support.js'),
     require('./lib/jasmine-2.4.1/jasmine.js'),

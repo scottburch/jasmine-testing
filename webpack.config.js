@@ -16,7 +16,7 @@ module.exports = {
                 loader: 'babel-loader',
                 include: [/src/, /helpers/],
                 query: {
-                    presets: ['es2015', 'react']
+                    presets: ['es2017', 'react']
                 }
             },
             { test: [/lib\/jasmine.*\.js/, /source-map-support/], loader: 'raw-loader'},

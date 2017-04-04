@@ -1,5 +1,5 @@
 var ReactDom = require('react-dom');
-var TestUtils = require('react/lib/ReactTestUtils.js');
+var TestUtils = require('react-addons-test-utils');
 var $j = require('jquery');
 var _ = require('lodash');
 
